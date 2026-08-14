@@ -1,4 +1,6 @@
 # Setup
+A simple reflex agent for a vacuum cleaner world with graphical representation.
+
 ## Create New Project
 1. Open Visual Studio Community
 2. Click 'Create a new project'
