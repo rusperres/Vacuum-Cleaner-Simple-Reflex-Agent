@@ -4,9 +4,11 @@ namespace Activity1
     {
         VacuumEnvironment env = new VacuumEnvironment();
         Agent agent = new SimpleReflexAgent();
+        int cx, cy;
         public Form1()
         {
             InitializeComponent();
+            cx = cy = 0;
         }
 
 
@@ -32,19 +34,21 @@ namespace Activity1
                 if (tup != null) locationText = $"{tup.Item1}, {tup.Item2}";
 
                 richTextBox1.Text += $"Step {step + 1}: Action = {action} | Location = {locationText} | Score = {agent.Performance}\r\n";
-                //try
-                //{
-                //    Thread.Sleep(5000);
-                //}
-                //catch (Exception ex)
-                //{
-                //    richTextBox1.Text += ex.Message;
-                //    throw;
-                //}
+                Thread.Sleep(5000);
             }
             richTextBox1.Text += "FINAL WORLD: \r\n";
             richTextBox1.Text += $"{env.ToString()}";
             richTextBox1.Text += $"FINAL PERFORMANCE SCORE: {agent.Performance}\r\n";
         }
+
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            var percept = env.Percept(agent);
+            var tup = percept as Tuple<int, int, bool>;
+            Graphics g = e.Graphics;
+            g.DrawArc(Pens.Red, tup.Item1, tup.Item2, 20, 20, 0, 360);
+        }
+
+      
     }
 }

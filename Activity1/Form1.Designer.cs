@@ -30,19 +30,21 @@
         {
             richTextBox1 = new RichTextBox();
             button1 = new Button();
+            pictureBox1 = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // richTextBox1
             // 
-            richTextBox1.Location = new Point(308, 12);
+            richTextBox1.Location = new Point(132, 61);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(454, 411);
+            richTextBox1.Size = new Size(334, 351);
             richTextBox1.TabIndex = 0;
             richTextBox1.Text = "";
             // 
             // button1
             // 
-            button1.Location = new Point(129, 400);
+            button1.Location = new Point(23, 226);
             button1.Name = "button1";
             button1.Size = new Size(75, 23);
             button1.TabIndex = 1;
@@ -50,16 +52,26 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
+            // pictureBox1
+            // 
+            pictureBox1.Location = new Point(536, 130);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(168, 156);
+            pictureBox1.TabIndex = 2;
+            pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(pictureBox1);
             Controls.Add(button1);
             Controls.Add(richTextBox1);
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -67,5 +79,6 @@
 
         private RichTextBox richTextBox1;
         private Button button1;
+        private PictureBox pictureBox1;
     }
 }

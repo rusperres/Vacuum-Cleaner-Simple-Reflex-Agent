@@ -70,7 +70,7 @@ namespace Activity1
         public override void ExecuteAction(Agent agent, object action)
         {
             string act = action as string;
-            if (act != null)
+            if (act == null)
             {
                 agent.Performance -= 1; // if action is invalid
                 return;
