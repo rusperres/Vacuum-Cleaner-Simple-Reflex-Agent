@@ -18,10 +18,11 @@ namespace Activity1
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             richTextBox1.Text = "Creating 2x2 world\n";
             richTextBox1.Text += env;
+
 
             for (int step = 0; step < 10; step++)
             {
@@ -34,21 +35,31 @@ namespace Activity1
                 if (tup != null) locationText = $"{tup.Item1}, {tup.Item2}";
 
                 richTextBox1.Text += $"Step {step + 1}: Action = {action} | Location = {locationText} | Score = {agent.Performance}\r\n";
-                Thread.Sleep(5000);
+
+                pictureBox1.Invalidate();
+                await Task.Delay(1000);
+                // this.Refresh(); 
+
             }
             richTextBox1.Text += "FINAL WORLD: \r\n";
             richTextBox1.Text += $"{env.ToString()}";
             richTextBox1.Text += $"FINAL PERFORMANCE SCORE: {agent.Performance}\r\n";
         }
 
-        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_paint(object sender, PaintEventArgs e)
         {
             var percept = env.Percept(agent);
             var tup = percept as Tuple<int, int, bool>;
             Graphics g = e.Graphics;
-            g.DrawArc(Pens.Red, tup.Item1, tup.Item2, 20, 20, 0, 360);
-        }
+            g.DrawArc(Pens.Red, tup.Item2 * 100, tup.Item1 * 100, 20, 20, 0, 360);
 
-      
+        }
     }
 }

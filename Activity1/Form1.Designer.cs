@@ -54,11 +54,13 @@
             // 
             // pictureBox1
             // 
+            pictureBox1.BackColor = SystemColors.ControlDark;
             pictureBox1.Location = new Point(536, 130);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(168, 156);
+            pictureBox1.Size = new Size(120, 120);
             pictureBox1.TabIndex = 2;
             pictureBox1.TabStop = false;
+            pictureBox1.Paint += pictureBox1_paint;
             // 
             // Form1
             // 
