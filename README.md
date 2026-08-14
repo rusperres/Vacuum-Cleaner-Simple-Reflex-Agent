@@ -23,5 +23,6 @@
 3. Go to Action -> Click.
 4. Type the function name `pictureBox1_Paint` and it will automatically declare the function in Form.cs.
 
+---
 
 Enjoy coding!
