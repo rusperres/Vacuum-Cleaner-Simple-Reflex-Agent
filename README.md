@@ -24,6 +24,7 @@ A simple reflex agent for a vacuum cleaner world with graphical representation.
 2. Go to Events (Lightning Icon).
 3. Go to Action -> Click.
 4. Type the function name `pictureBox1_Paint` and it will automatically declare the function in Form.cs.
+5. Go to the Properties (Wrench Icon) and make sure the Size property is set to `120, 120`.
 
 ---
 
