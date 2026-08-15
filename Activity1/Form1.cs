@@ -56,9 +56,29 @@ namespace Activity1
         private void pictureBox1_paint(object sender, PaintEventArgs e)
         {
             var percept = env.Percept(agent);
-            var tup = percept as Tuple<int, int, bool>;
+            var tup = percept as Tuple <int, int, bool>;
             Graphics g = e.Graphics;
-            g.DrawArc(Pens.Red, tup.Item2 * 100, tup.Item1 * 100, 20, 20, 0, 360);
+            int agentSize = 50;
+            int margin = 10;
+            int agentXC = tup.Item2 * agentSize + margin;
+            int agentYC = tup.Item1 * agentSize + margin;
+            
+            g.DrawArc(Pens.Red, agentXC, agentYC, agentSize, agentSize, 0, 360);
+
+            int dirtSize = 20;
+            for(int i = 0; i<2; i++)
+            {
+                for(int j = 0; j < 2; j++)
+                {
+                    bool isDirty = env.getGridXY(i, j) == 1;
+                    int agentHalf = agentSize / 2;
+                    int dirtHalf = dirtSize / 2;
+                    int dirtX = j * agentSize + margin + agentHalf - dirtHalf;
+                    int dirtY = i * agentSize + margin + agentHalf - dirtHalf;
+                    if (isDirty) g.DrawEllipse(Pens.Blue, dirtX,  dirtY, dirtSize, dirtSize);                
+                }
+            }
+
 
         }
     }

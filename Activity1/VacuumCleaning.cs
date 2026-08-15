@@ -23,9 +23,15 @@ namespace Activity1
     public class VacuumEnvironment: Environment
     {
         private int[,] grid = new int[2, 2];
+
         private int agentX = 0;
         private int agentY = 0;
         private Random rand = new Random();
+
+        public int getGridXY(int x, int y)
+        {
+            return grid[x, y];
+        }
 
         public VacuumEnvironment()
         {
