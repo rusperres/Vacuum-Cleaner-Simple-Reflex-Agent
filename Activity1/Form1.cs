@@ -3,7 +3,8 @@ namespace Activity1
     public partial class Form1 : Form
     {
         VacuumEnvironment env = new VacuumEnvironment();
-        Agent agent = new SimpleReflexAgent();
+        //Agent agent = new SimpleReflexAgent();
+        Agent agent = new ImprovedAgent();
         int cx, cy;
         public Form1()
         {

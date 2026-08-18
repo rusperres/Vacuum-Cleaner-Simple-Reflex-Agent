@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 namespace Activity1
@@ -19,6 +20,7 @@ namespace Activity1
         public int Performance { get; set; } = 0;
         public abstract object Program(object percept);
     }
+
 
     public class VacuumEnvironment: Environment
     {
@@ -128,6 +130,40 @@ namespace Activity1
             string[] choices = { "Up", "Down", "Left", "Right" };
             return choices[rand.Next(choices.Length)];
             
+        }
+    }
+    public class ImprovedAgent: Agent
+    {
+        private readonly Random rand = new Random();
+       
+        private HashSet<(int, int)> history = new HashSet<(int, int)>();
+        public override object Program(object percept)
+        {
+            var tup = percept as Tuple<int, int, bool>;
+            if (tup == null) return null;
+            bool isDirty = tup.Item3;
+            history.Add((tup.Item1, tup.Item2));
+
+            if (isDirty) return "Suck";
+
+            //string[] choices = { "Up", "Down", "Left", "Right" };
+            //return choices[rand.Next(choices.Length)];
+            return Select(tup);
+        }
+
+        private string Select(Tuple<int, int, bool> coordinates)
+        {
+            List<string> choices = new List<string>(){ "Up", "Down", "Left", "Right"};
+            int up = coordinates.Item1 - 1;
+            int down = coordinates.Item1 + 1;
+            int left = coordinates.Item2 - 1;
+            int right = coordinates.Item2 + 1;
+            if (up < 0 || history.Contains((up,coordinates.Item2))) choices.Remove("Up");
+            if (down > 1 || history.Contains((down,coordinates.Item2))) choices.Remove("Down");
+            if (left < 0 || history.Contains((coordinates.Item1,left))) choices.Remove("Left");
+            if (right > 1 || history.Contains((coordinates.Item1,right))) choices.Remove("Right");
+            if (choices.Count <= 0) return "";
+            return choices[rand.Next(choices.Count)];
         }
     }
 }
