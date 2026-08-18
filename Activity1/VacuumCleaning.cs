@@ -135,14 +135,14 @@ namespace Activity1
     public class ImprovedAgent: Agent
     {
         private readonly Random rand = new Random();
-       
-        private HashSet<(int, int)> history = new HashSet<(int, int)>();
+
+        private HashSet<(int, int)> coordinateHistory = new HashSet<(int, int)>();
+        private Stack<string> directionHistory = new Stack<string>();
         public override object Program(object percept)
         {
             var tup = percept as Tuple<int, int, bool>;
             if (tup == null) return null;
             bool isDirty = tup.Item3;
-            history.Add((tup.Item1, tup.Item2));
 
             if (isDirty) return "Suck";
 
@@ -158,12 +158,36 @@ namespace Activity1
             int down = coordinates.Item1 + 1;
             int left = coordinates.Item2 - 1;
             int right = coordinates.Item2 + 1;
-            if (up < 0 || history.Contains((up,coordinates.Item2))) choices.Remove("Up");
-            if (down > 1 || history.Contains((down,coordinates.Item2))) choices.Remove("Down");
-            if (left < 0 || history.Contains((coordinates.Item1,left))) choices.Remove("Left");
-            if (right > 1 || history.Contains((coordinates.Item1,right))) choices.Remove("Right");
-            if (choices.Count <= 0) return "";
-            return choices[rand.Next(choices.Count)];
+            if (up < 0 && coordinateHistory.Contains((up, coordinates.Item2))) choices.Remove("Up");
+            if (down > 1 && coordinateHistory.Contains((down, coordinates.Item2))) choices.Remove("Down");
+            if (left < 0 && coordinateHistory.Contains((coordinates.Item1, left))) choices.Remove("Left");
+            if (right > 1 && coordinateHistory.Contains((coordinates.Item1, right))) choices.Remove("Right");
+
+            string choice = "";
+            if(choices.Count <= 0)
+            {
+                string prev = directionHistory.Pop();
+                switch(prev)
+                {
+                    case "Up":
+                        choice = "Down";
+                        break;
+                    case "Down":
+                        choice = "Up";
+                        break;
+                    case "Left":
+                        choice = "Right";
+                        break;
+                    case "Right":
+                        choice = "Left";
+                        break;
+                }
+                return choice;
+                 
+            }
+            choice = choices[rand.Next(choices.Count)];
+            directionHistory.Push(choice);
+            return choice; 
         }
     }
 }
