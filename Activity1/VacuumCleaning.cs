@@ -111,10 +111,10 @@ namespace Activity1
                 agentY += 1;
                 agent.Performance -= 1;
             }
-            else
-            {
-                agent.Performance -= 1;
-            }
+            //else
+            //{
+            //    agent.Performance -= 1;
+            //}
         }
     }
     public class SimpleReflexAgent : Agent
@@ -143,7 +143,7 @@ namespace Activity1
             var tup = percept as Tuple<int, int, bool>;
             if (tup == null) return null;
             bool isDirty = tup.Item3;
-
+            coordinateHistory.Add((tup.Item1, tup.Item2));
             if (isDirty) return "Suck";
 
             //string[] choices = { "Up", "Down", "Left", "Right" };
@@ -158,14 +158,15 @@ namespace Activity1
             int down = coordinates.Item1 + 1;
             int left = coordinates.Item2 - 1;
             int right = coordinates.Item2 + 1;
-            if (up < 0 && coordinateHistory.Contains((up, coordinates.Item2))) choices.Remove("Up");
-            if (down > 1 && coordinateHistory.Contains((down, coordinates.Item2))) choices.Remove("Down");
-            if (left < 0 && coordinateHistory.Contains((coordinates.Item1, left))) choices.Remove("Left");
-            if (right > 1 && coordinateHistory.Contains((coordinates.Item1, right))) choices.Remove("Right");
+            if (up < 0 || coordinateHistory.Contains((up, coordinates.Item2))) choices.Remove("Up");
+            if (down > 1 || coordinateHistory.Contains((down, coordinates.Item2))) choices.Remove("Down");
+            if (left < 0 || coordinateHistory.Contains((coordinates.Item1, left))) choices.Remove("Left");
+            if (right > 1 || coordinateHistory.Contains((coordinates.Item1, right))) choices.Remove("Right");
 
             string choice = "";
             if(choices.Count <= 0)
             {
+                if (directionHistory.Count == 0) return "";
                 string prev = directionHistory.Pop();
                 switch(prev)
                 {
